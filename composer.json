@@ -1,0 +1,6 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^7.0",
+        "khanamiryan/qrcode-detector-decoder": "1.0.5.2"
+    }
+}
