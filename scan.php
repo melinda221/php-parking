@@ -1,10 +1,12 @@
 <?php  
-
-require('vendor/autoload.php');
+date_default_timezone_set("Asia/Jakarta");
+require_once('vendor/autoload.php');
 include_once('functions.php');  
+require_once('config/database.php');
+$con =  mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE);
 use Zxing\QrReader;
 $func = new functions();
-$msg = "";
+$code = "";
 if (isset($_POST['submit'])) {
   
   $filename = $_FILES["qrCode"]["name"];
@@ -14,19 +16,21 @@ if (isset($_POST['submit'])) {
 
   $filetype = explode("/", $filetype);
   if ($filetype[0] !== "image") {
-    $msg = "File type is invalid: " . $filetype[1];
+    $code = "File type is invalid: " . $filetype[1];
   } elseif ($filesize > 5242880) {
-    $msg = "File size is too big. Maximum size is 5 MB.";
+    $code = "File size is too big. Maximum size is 5 MB.";
   } else {
     $newfilename = md5(rand() . time()) . $filename;
     move_uploaded_file($filetemp, "assets/img/temp3/" . $newfilename);
 
     $qrScan = new QrReader("assets/img/temp3/" . $newfilename);
-    $msg = $qrScan->text();
+    $code = $qrScan->text();
+   
+    
 }
 
-if ($func->updateTime($_POST) > 0){
-    header("Location:transaksi.php?code=".$msg); 
+if (mysqli_query($con ,"UPDATE transportations_banyumanik SET updated_at=now() WHERE code='$code'")){
+    header("Location:transaksi.php?code=".$code); 
 }
 else {
     die('ERROR: data gagal '.$data.': '. mysqli_error($data));
@@ -78,7 +82,7 @@ else {
             <div class="container py-5">
             <div class="row">
             <div class="col-lg-5 mx-auto">
-                <!-- <?= $msg; ?> -->
+                <!-- <?= $code; ?> -->
                 <div class="card card-body p-5 rounded border bg-white">
                 <h1 class="mb-4 text-center">QR Code Scanner</h1>
                 <form action="" method="post" enctype="multipart/form-data">

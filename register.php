@@ -51,7 +51,7 @@
                         <div class="col-md-12">
                             <form action="" method="post">
                                 <!-- <input type="hidden" name="id" value="<?= $_SESSION["user_id"]?>"> -->
-                                <input type="hidden" name="created_at" value="<?php echo date("Y-m-d\TH:i:s"); ?>" readonly="readonly">
+                                <input type="hidden" name="created_at" value="<?php echo date("Y-m-d H:i:s"); ?>" readonly="readonly">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email :</label>
                                     <input type="name" class="form-control" name="email" id="exampleInputEmail1"

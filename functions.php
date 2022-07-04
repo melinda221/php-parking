@@ -119,15 +119,15 @@ session_start();
 
 
        
-        public function updateTime($data)
-        {
-            $code = $data['code'];
+        // public function updateTime($data)
+        // {
+        //     $code = $data['code'];
        
 
-            $data = mysqli_query($this->db->conn ,"UPDATE transportations_banyumanik SET updated_at=now() WHERE code='$code'") or die(mysqli_error($this->db->conn));
+        //     $data = mysqli_query($this->db->conn ,"UPDATE transportations_banyumanik SET updated_at=now() WHERE code='$code'") or die(mysqli_error($this->db->conn));
 
-            return $data;
-        }
+        //     return $data;
+        // }
 
         public function transaction($code)
         {
